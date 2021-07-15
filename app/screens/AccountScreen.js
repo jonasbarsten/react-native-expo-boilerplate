@@ -18,10 +18,11 @@ const menuItems = [
   {
     title: "My messages",
     icon: { name: "email", backgroundColor: defaultStyles.colors.secondary },
+    targetScreen: "Messages",
   },
 ];
 
-function AccountScreen(props) {
+function AccountScreen({ navigation }) {
   return (
     <MyScreen style={styles.screen}>
       <View style={styles.container}>
@@ -41,6 +42,7 @@ function AccountScreen(props) {
             <MyListItem
               title={item.title}
               style={{ backgroundColor: defaultStyles.colors.white }}
+              onPress={() => navigation.navigate(item.targetScreen)}
               IconComponent={
                 <MyIcon
                   name={item.icon.name}

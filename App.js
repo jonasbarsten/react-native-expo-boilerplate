@@ -11,6 +11,7 @@ import {
   TouchableWithoutFeedback,
   Alert,
 } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
 
 import WelcomeScreen from "./app/screens/WelcomeScreen";
 import ViewImageScreen from "./app/screens/ViewImageScreen";
@@ -32,10 +33,34 @@ import PickerScreen from "./app/screens/PickerScreen";
 import LoginScreen from "./app/screens/LoginScreen";
 import ListingEditScreen from "./app/screens/ListingEditScreen";
 import ImagePickerScreen from "./app/screens/ImagePickerScreen";
+import ImageInputScreen from "./app/screens/ImageInputScreen";
+import ImageInputListScreen from "./app/screens/ImageInputListScreen";
+import NavigationScreen from "./app/screens/NavigationScreen";
+
+import AuthNavigator from "./app/navigation/AuthNavigator";
+import AppNavigator from "./app/navigation/AppNavigator";
+
+import navigationTheme from "./app/navigation/navigationTheme";
 
 export default function App() {
-  return <ImagePickerScreen />;
+  return (
+    <NavigationContainer theme={navigationTheme}>
+      <AppNavigator />
+    </NavigationContainer>
+  );
+
+  return (
+    <NavigationContainer theme={navigationTheme}>
+      <AuthNavigator />
+    </NavigationContainer>
+  );
+
+  return <ListingDetailsScreen />;
+  return <NavigationScreen />;
   return <ListingEditScreen />;
+  return <ImageInputListScreen />;
+  return <ImageInputScreen />;
+  return <ImagePickerScreen />;
   return <MessagesScreen />;
   return <LoginScreen />;
   return <PickerScreen />;
@@ -49,7 +74,6 @@ export default function App() {
   return <PlatformSpecificCodeScreen />;
   return <WelcomeScreen />;
   return <CardsContainerScreen />;
-  return <ListingDetailsScreen />;
   return <ViewImageScreen />;
   return <IconsScreen />;
   return <AccountScreen />;

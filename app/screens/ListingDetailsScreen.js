@@ -5,13 +5,24 @@ import MyText from "../components/MyText";
 import MyListItem from "../components/MyListItem";
 import defaultStyles from "../config/styles";
 
-function ListingDetailsScreen(props) {
+function ListingDetailsScreen({ route }) {
+  // Just for demo purposes to make this component show on its own
+  let listing = {
+    image: require("../assets/jacket.jpg"),
+    price: 100,
+    title: "Red jacket for sale",
+  };
+
+  if (route?.params) {
+    listing = route.params;
+  }
+
   return (
     <View>
-      <Image style={styles.image} source={require("../assets/jacket.jpg")} />
+      <Image style={styles.image} source={listing.image} />
       <View style={styles.detailsContainer}>
-        <MyText style={styles.title}>Red jacket for sale</MyText>
-        <MyText style={styles.price}>$100</MyText>
+        <MyText style={styles.title}>{listing.title}</MyText>
+        <MyText style={styles.price}>${listing.price}</MyText>
         <View style={styles.userContainer}>
           <MyListItem
             image={require("../assets/mosh.jpg")}
