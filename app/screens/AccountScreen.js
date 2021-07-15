@@ -27,7 +27,7 @@ function AccountScreen(props) {
       <View style={styles.container}>
         <MyListItem
           title="Jonas Barsten"
-          subTitle="jonasbarsten@gmail.com"
+          subTitle="someemail@email.com"
           image={require("../assets/mosh.jpg")}
           style={{ backgroundColor: defaultStyles.colors.white }}
         />
