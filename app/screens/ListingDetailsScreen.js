@@ -6,20 +6,11 @@ import MyListItem from "../components/MyListItem";
 import defaultStyles from "../config/styles";
 
 function ListingDetailsScreen({ route }) {
-  // Just for demo purposes to make this component show on its own
-  let listing = {
-    image: require("../assets/jacket.jpg"),
-    price: 100,
-    title: "Red jacket for sale",
-  };
-
-  if (route?.params) {
-    listing = route.params;
-  }
+  const listing = route.params;
 
   return (
     <View>
-      <Image style={styles.image} source={listing.image} />
+      <Image style={styles.image} source={{ uri: listing.images[0].url }} />
       <View style={styles.detailsContainer}>
         <MyText style={styles.title}>{listing.title}</MyText>
         <MyText style={styles.price}>${listing.price}</MyText>

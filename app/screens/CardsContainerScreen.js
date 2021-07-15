@@ -9,7 +9,7 @@ function CardsContainerScreen(props) {
       <MyCard
         title="Red jacket for sale"
         subTitle="$100"
-        image={require("../assets/jacket.jpg")}
+        imageUrl={require("../assets/jacket.jpg")}
       />
     </View>
   );
