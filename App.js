@@ -12,6 +12,8 @@ import {
   Alert,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
+import { useNetInfo } from "@react-native-community/netinfo";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import WelcomeScreen from "./app/screens/WelcomeScreen";
 import ViewImageScreen from "./app/screens/ViewImageScreen";
@@ -43,6 +45,44 @@ import AppNavigator from "./app/navigation/AppNavigator";
 import navigationTheme from "./app/navigation/navigationTheme";
 
 export default function App() {
+  // NetInfo
+
+  // This will not get info about being connected to the internet as it runs only once
+  // NetInfo.fetch().then((netInfo) => console.log(netInfo));
+
+  // This will require unsubscribing
+  // const unsubscribe = NetInfo.addEventListener((netInfo) => console.log(netInfo));
+
+  const netInfo = useNetInfo();
+
+  // Caching
+
+  // Types of caching
+  // All persistent over restarts, but not over reinstall of app
+
+  // AsyncStorage: like localStoreage on web
+  // key: value pairs
+  // not encrypted
+  // max 6MB - can be increased
+
+  const demo = async () => {
+    try {
+      await AsyncStorage.setItem("person", JSON.stringify({ id: 1 }));
+      const value = await AsyncStorage.getItem("person");
+      const person = JSON.parse(value);
+      console.log(person);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  demo();
+
+  // SecureStore in expo
+  // Max 2MB
+
+  // SQLite
+
   return (
     <NavigationContainer theme={navigationTheme}>
       <AppNavigator />
