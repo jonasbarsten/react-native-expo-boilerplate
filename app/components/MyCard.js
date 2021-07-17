@@ -1,19 +1,22 @@
 import React from "react";
-import {
-  View,
-  Image,
-  StyleSheet,
-  TouchableWithoutFeedback,
-} from "react-native";
+import { View, StyleSheet, TouchableWithoutFeedback } from "react-native";
+
+// Offline support for images
+import { Image } from "react-native-expo-image-cache";
 
 import MyText from "./MyText";
 import defaultStyles from "../config/styles";
 
-function MyCard({ title, subTitle, imageUrl, onPress }) {
+function MyCard({ title, subTitle, imageUrl, onPress, thumbnailUrl }) {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.card}>
-        <Image source={{ uri: imageUrl }} style={styles.image} />
+        <Image
+          uri={imageUrl}
+          style={styles.image}
+          preview={{ uri: thumbnailUrl }}
+          tint="light"
+        />
         <View style={styles.detailedContainer}>
           <MyText style={styles.title}>{title}</MyText>
           <MyText style={styles.subTitle}>{subTitle}</MyText>

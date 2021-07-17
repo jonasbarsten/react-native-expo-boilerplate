@@ -43,6 +43,7 @@ import AuthNavigator from "./app/navigation/AuthNavigator";
 import AppNavigator from "./app/navigation/AppNavigator";
 
 import navigationTheme from "./app/navigation/navigationTheme";
+import MyOfflineNotice from "./app/components/MyOfflineNotice";
 
 export default function App() {
   // NetInfo
@@ -84,9 +85,12 @@ export default function App() {
   // SQLite
 
   return (
-    <NavigationContainer theme={navigationTheme}>
-      <AppNavigator />
-    </NavigationContainer>
+    <>
+      <MyOfflineNotice />
+      <NavigationContainer theme={navigationTheme}>
+        <AppNavigator />
+      </NavigationContainer>
+    </>
   );
 
   return (
