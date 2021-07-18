@@ -1,21 +1,11 @@
 // https://www.youtube.com/watch?v=0-S5a0eXPoc
 
-import { StatusBar } from "expo-status-bar";
-import React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  Image,
-  TouchableWithoutFeedback,
-  Alert,
-} from "react-native";
+import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { useNetInfo } from "@react-native-community/netinfo";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import jwtDecode from "jwt-decode";
+import AppLoading from "expo-app-loading";
 
-import WelcomeScreen from "./app/screens/WelcomeScreen";
+/* import WelcomeScreen from "./app/screens/WelcomeScreen";
 import ViewImageScreen from "./app/screens/ViewImageScreen";
 import BordersScreen from "./app/screens/BordersScreen";
 import ShadowsScreen from "./app/screens/ShadowsScreen";
@@ -37,69 +27,48 @@ import ListingEditScreen from "./app/screens/ListingEditScreen";
 import ImagePickerScreen from "./app/screens/ImagePickerScreen";
 import ImageInputScreen from "./app/screens/ImageInputScreen";
 import ImageInputListScreen from "./app/screens/ImageInputListScreen";
-import NavigationScreen from "./app/screens/NavigationScreen";
+import NavigationScreen from "./app/screens/NavigationScreen"; */
 
 import AuthNavigator from "./app/navigation/AuthNavigator";
 import AppNavigator from "./app/navigation/AppNavigator";
 
 import navigationTheme from "./app/navigation/navigationTheme";
 import MyOfflineNotice from "./app/components/MyOfflineNotice";
+import AuthContext from "./app/auth/context";
+
+import authStorage from "./app/auth/storage";
 
 export default function App() {
-  // NetInfo
+  const [user, setUser] = useState();
+  const [isReady, setIsReady] = useState(false);
 
-  // This will not get info about being connected to the internet as it runs only once
-  // NetInfo.fetch().then((netInfo) => console.log(netInfo));
-
-  // This will require unsubscribing
-  // const unsubscribe = NetInfo.addEventListener((netInfo) => console.log(netInfo));
-
-  const netInfo = useNetInfo();
-
-  // Caching
-
-  // Types of caching
-  // All persistent over restarts, but not over reinstall of app
-
-  // AsyncStorage: like localStoreage on web
-  // key: value pairs
-  // not encrypted
-  // max 6MB - can be increased
-
-  const demo = async () => {
-    try {
-      await AsyncStorage.setItem("person", JSON.stringify({ id: 1 }));
-      const value = await AsyncStorage.getItem("person");
-      const person = JSON.parse(value);
-      console.log(person);
-    } catch (e) {
-      console.log(e);
-    }
+  const restoreToken = async () => {
+    const token = await authStorage.getToken();
+    if (!token) return;
+    setUser(jwtDecode(token));
   };
 
-  demo();
-
-  // SecureStore in expo
-  // Max 2MB
-
-  // SQLite
+  // We show native loading screen while app gets ready
+  if (!isReady) {
+    return (
+      <AppLoading
+        startAsync={restoreToken}
+        onFinish={() => setIsReady(true)}
+        onError={() => console.log("Could not load app")}
+      />
+    );
+  }
 
   return (
-    <>
+    <AuthContext.Provider value={{ user, setUser }}>
       <MyOfflineNotice />
       <NavigationContainer theme={navigationTheme}>
-        <AppNavigator />
+        {user ? <AppNavigator /> : <AuthNavigator />}
       </NavigationContainer>
-    </>
+    </AuthContext.Provider>
   );
 
-  return (
-    <NavigationContainer theme={navigationTheme}>
-      <AuthNavigator />
-    </NavigationContainer>
-  );
-
-  return <ListingDetailsScreen />;
+  /*   return <ListingDetailsScreen />;
   return <NavigationScreen />;
   return <ListingEditScreen />;
   return <ImageInputListScreen />;
@@ -121,52 +90,5 @@ export default function App() {
   return <ViewImageScreen />;
   return <IconsScreen />;
   return <AccountScreen />;
-  return <ListingsScreen />;
-
-  return (
-    <View
-      style={{
-        flex: 1,
-        flexDirection: "column",
-        justifyContent: "center",
-      }}
-    >
-      <Image
-        style={{ width: "100%", flex: 12 }}
-        source={{
-          uri: "https://picsum.photos/200/300",
-          width: 200,
-          height: 300,
-        }}
-      />
-      <View
-        style={{
-          position: "absolute",
-          top: 100,
-          alignSelf: "center",
-        }}
-      >
-        <Image
-          source={{
-            uri: "https://picsum.photos/100",
-            width: 100,
-            height: 100,
-          }}
-        />
-        <Text>Hello, here is some text</Text>
-      </View>
-
-      <View style={{ backgroundColor: "gold", flex: 1 }} />
-      <View style={{ backgroundColor: "blue", flex: 1 }} />
-    </View>
-  );
+  return <ListingsScreen />; */
 }
-
-/* const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-}); */

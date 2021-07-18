@@ -8,8 +8,13 @@ function RegisterScreen(props) {
   return (
     <View style={styles.container}>
       <MyTextInput placeholder="Name" icon="account" />
-      <MyTextInput placeholder="Email" icon="email" />
-      <MyTextInput placeholder="Password" icon="lock" />
+      <MyTextInput
+        placeholder="Email"
+        icon="email"
+        autoCapitalize={false}
+        keyboardType="email-address"
+      />
+      <MyTextInput placeholder="Password" icon="lock" secureTextEntry={true} />
       <MyButton title="Register" />
     </View>
   );
