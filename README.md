@@ -59,3 +59,23 @@ app.json -> version vs expo.{platform}.package/buildNumber: version is what user
 - Dowbnload build.apk (Big file, expo-team is working on this)
 - expo fetch:android:keystore -> path (keep safe, you need it to update app in Play Store)
 - ... rest here: https://docs.expo.io/distribution/uploading-apps/
+
+#### Over the air updates
+
+App checks project page on expo for updates when it restarts and downloads new version if available.
+
+If we change anything in app.json we have to re-submit to app stores
+
+## Additional resources:
+
+Expo's documentation is your first step to distributing your apps. Always check the documentation for the updated instructions:
+
+https://docs.expo.io/distribution/introduction/
+
+If you want to automate your app deployment, consider FastLane:
+
+https://fastlane.tools/
+
+This blog posts shows how you can use Fastlane to deploy Expo apps:
+
+https://blog.expo.io/automating-standalone-expo-app-builds-and-deployments-with-fastlane-exp-and-exptool-9b2f5ad0a2cd
