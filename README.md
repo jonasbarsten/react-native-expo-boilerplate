@@ -2,6 +2,15 @@ Made with https://codewithmosh.com/
 
 Animations: https://lottiefiles.com/
 
+# setup
+
+npm install --global expo-cli
+expo init my-project
+
+# run
+
+npm start
+
 # web
 
 expo-secure-store is not available for web yet. We use this for persisting auth between app restarts
